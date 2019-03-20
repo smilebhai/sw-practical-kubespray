@@ -7,95 +7,114 @@ This is a clone of https://github.com/kubernetes-sigs/kubespray, "Deploy a Produ
 
 ## Create a basic AWS infrastructure for use with Kubernetes
 
-```sh
 Generate new keypair for AWS if one does not already exists
-$ ssh-keygen -t rsa -C "kubespray-terraform-aws" -f ./../ssh-keys/kubespray-terraform-aws_id_rsa
 
-$ Import into AWS using this command or manually import from AWS EC2 console
-aws ec2 import-key-pair --key-name "kubespray-terraform-aws" --region us-east-1 --public-key-material "$(cat ./../ssh-keys/kubespray-terraform-aws_id_rsa.pub)"
+    $ ssh-keygen -t rsa -C "kubespray-terraform-aws" -f ./../ssh-keys/kubespray-terraform-aws_id_rsa
+
+Import into AWS using this command or manually import from AWS EC2 console
+
+    $ aws ec2 import-key-pair --key-name "kubespray-terraform-aws" --region us-east-1 --public-key-material "$(cat ./../ssh-keys/kubespray-terraform-aws_id_rsa.pub)"
 
 `NOTE`: Make sure to change the aws profile as well as `--region` and `--key-name` accordingly.
 
 Change directory
-$ cd kubespray/contrib/terraform/aws/
+
+    $ cd kubespray/contrib/terraform/aws/
 
 Configure AWS infrastructure
-$ vi terraform.tfvars
+
+    $ vi terraform.tfvars
 
 Set your choice of data "aws_ami" "distro"
-$ vi variables.tf
+
+    $ vi variables.tf
 
 Initialize a working directory containing Terraform configuration files
-$ terraform init
+
+    $ terraform init
 
 Create an execution plan
-$ terraform plan -out=aws_kubespray_plan -var-file=credentials.tfvars
+
+    $ terraform plan -out=aws_kubespray_plan -var-file=credentials.tfvars
 
 Update hosts to match template ./inventory/hosts-example. Note that we used ip-x-x-x-x.ec2.internal as a node name, this is a requirement when using AWS cloud provider in kubespray.
-$ vi ../../../inventory/hosts
+
+    $ vi ../../../inventory/hosts
 
 Apply the changes required to reach the desired state of the configuration
-$ terraform apply "aws_kubespray_plan"
+
+    $ terraform apply "aws_kubespray_plan"
 
 If you need to destroy the Terraform-managed infrastructure and start over
-$ terraform destroy
+
+    $ terraform destroy
 
 Return to project directory
-$ cd ../../..
+
+    $ cd ../../..
 
 Deploy Kubespray with Ansible Playbook
-$ ansible-playbook -i ./inventory/hosts ./cluster.yml \
--e ansible_user=centos -e bootstrap_os=centos \
--e ansible_ssh_private_key_file=./../ssh-keys/kubespray-terraform-aws_id_rsa \
--e cloud_provider=aws -b --become-user=root --flush-cache
 
-```
+    $ ansible-playbook -i ./inventory/hosts ./cluster.yml \
+    -e ansible_user=centos -e bootstrap_os=centos \
+    -e ansible_ssh_private_key_file=./../ssh-keys/kubespray-terraform-aws_id_rsa \
+    -e cloud_provider=aws -b --become-user=root --flush-cache
+
 
 ## Create a HA AWS infrastructure for use with Kubernetes
 
-```sh
 Generate new keypair for AWS if one does not already exists
-$ ssh-keygen -t rsa -C "kubespray-terraform-aws" -f ./../ssh-keys/kubespray-terraform-aws_id_rsa
 
-$ Import into AWS using this command or manually import from AWS EC2 console
-aws ec2 import-key-pair --key-name "kubespray-terraform-aws" --region us-east-1 --public-key-material "$(cat ./../ssh-keys/kubespray-terraform-aws_id_rsa.pub)"
+    $ ssh-keygen -t rsa -C "kubespray-terraform-aws" -f ./../ssh-keys/kubespray-terraform-aws_id_rsa
 
-`NOTE`: Make sure to change the aws profile as well as `--region` and `--key-name` accordingly.
+Import into AWS using this command or manually import from AWS EC2 console
+
+    $ aws ec2 import-key-pair --key-name "kubespray-terraform-aws" --region us-east-1 --public-key-material "$(cat ./../ssh-keys/kubespray-terraform-aws_id_rsa.pub)"
+
+    `NOTE`: Make sure to change the aws profile as well as `--region` and `--key-name` accordingly.
 
 Change directory
-$ cd kubespray/contrib/terraform/aws-ha/
+
+    $ cd kubespray/contrib/terraform/aws-ha/
 
 Configure AWS infrastructure
-$ vi terraform.tfvars
+
+    $ vi terraform.tfvars
 
 Set your choice of data "aws_ami" "distro"
-$ vi variables.tf
+
+    $ vi variables.tf
 
 Initialize a working directory containing Terraform configuration files
-$ terraform init
+
+    $ terraform init
 
 Create an execution plan
-$ terraform plan -out=aws_ha_kubespray_plan -var-file=credentials.tfvars
+
+    $ terraform plan -out=aws_ha_kubespray_plan -var-file=credentials.tfvars
 
 Update hosts to match template ./inventory/hosts-example. Note that we used ip-x-x-x-x.ec2.internal as a node name, this is a requirement when using AWS cloud provider in kubespray.
-$ vi ../../../inventory/hosts
+
+    $ vi ../../../inventory/hosts
 
 Apply the changes required to reach the desired state of the configuration
-$ terraform apply "aws_ha_kubespray_plan"
+
+    $ terraform apply "aws_ha_kubespray_plan"
 
 If you need to destroy the Terraform-managed infrastructure and start over
-$ terraform destroy
+
+    $ terraform destroy
 
 Return to project directory
-$ cd ../../..
+
+    $ cd ../../..
 
 Deploy Kubespray with Ansible Playbook
-$ ansible-playbook -i ./inventory/hosts ./cluster.yml \
--e ansible_user=centos -e bootstrap_os=centos \
--e ansible_ssh_private_key_file=./../ssh-keys/kubespray-terraform-aws_id_rsa \
--e cloud_provider=aws -b --become-user=root --flush-cache
 
-```
+    $ ansible-playbook -i ./inventory/hosts ./cluster.yml \
+    -e ansible_user=centos -e bootstrap_os=centos \
+    -e ansible_ssh_private_key_file=./../ssh-keys/kubespray-terraform-aws_id_rsa \
+    -e cloud_provider=aws -b --become-user=root --flush-cache
 
 ## Resources
 
