@@ -22,9 +22,7 @@ contrib/terraform/aws-ha/aws_ha_kubespray_plan
 vagrant/
 
 # Ansible inventory
-inventory/*
-!inventory/local
-!inventory/sample
+inventory/hosts
 inventory/*/artifacts/
 
 # Byte-compiled / optimized / DLL files

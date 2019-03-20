@@ -1,0 +1,19 @@
+[all]
+ip-1-x-x-x.ec2.internal ansible_ssh_host=x.x.x.x
+ip-x-2-x-x.ec2.internal ansible_ssh_host=x.x.x.x
+ip-x-2-1-x.ec2.internal ansible_ssh_host=x.x.x.x
+ip-x-x-3-x.ec2.internal ansible_ssh_host=x.x.x.x
+
+[kube-master]
+ip-1-x-x-x.ec2.internal
+
+[kube-node]
+ip-x-2-x-x.ec2.internal
+ip-x-2-1-x.ec2.internal
+
+[etcd]
+ip-x-x-3-x.ec2.internal
+
+[k8s-cluster:children]
+kube-node
+kube-master
