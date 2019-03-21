@@ -63,6 +63,8 @@ Deploy Kubespray with Ansible Playbook
 
 ## Create a HA AWS infrastructure for use with Kubernetes
 
+![AWS HA Kubernetes Cluster](aws_kubespray.png)
+
 Generate new keypair for AWS if one does not already exists
 
     $ ssh-keygen -t rsa -C "kubespray-terraform-aws" -f ./../ssh-keys/kubespray-terraform-aws_id_rsa
