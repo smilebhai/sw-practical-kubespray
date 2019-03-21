@@ -31,4 +31,4 @@ default_tags = {
 #  Product = "kubernetes-kubespray-ha"
 }
 
-inventory_file = "../../../inventory/hosts"
+inventory_file = "../../../inventory/hosts-aws-ha"

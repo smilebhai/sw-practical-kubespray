@@ -23,6 +23,7 @@ vagrant/
 
 # Ansible inventory
 inventory/hosts
+inventory/hosts-aws-ha
 inventory/*/artifacts/
 
 # Byte-compiled / optimized / DLL files

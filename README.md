@@ -111,7 +111,7 @@ Return to project directory
 
 Deploy Kubespray with Ansible Playbook
 
-    $ ansible-playbook -i ./inventory/hosts ./cluster.yml \
+    $ ansible-playbook -i ./inventory/hosts-aws-ha ./cluster.yml \
     -e ansible_user=centos -e bootstrap_os=centos \
     -e ansible_ssh_private_key_file=./../ssh-keys/kubespray-terraform-aws_id_rsa \
     -e cloud_provider=aws -b --become-user=root --flush-cache
